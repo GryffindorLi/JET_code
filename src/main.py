@@ -1,15 +1,18 @@
-import requests
 import json
-from typing import List, Dict
-from restaurant import Restaurant
+
+import requests
+
+from utils import check_postcode, select_json_field
 
 
-def select_json_field(restaurants: List[Dict]):
-    return [Restaurant(info) for info in restaurants]
-
-def main(postcode="EC4M7RF"):
+def main(postcode: str = "EC4M7RF"):
     # postcode = input("Please input the postcode you would like to query:\n>>> ")
-    url = f"https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/{postcode}"
+
+    if not check_postcode(postcode=postcode):
+        raise ValueError("The postcode must be a valid UK postcode.")
+
+    url = f"https://uk.api.just-eat.io/discovery/uk/restaurants/enriched/bypostcode/{
+        postcode}"
 
     response = requests.get(url=url)
 
@@ -19,7 +22,9 @@ def main(postcode="EC4M7RF"):
         with open("./fake.json", "r", encoding="utf-8") as f:
             data = json.load(f)
 
-    print(data['restaurants'][:10])
+    top10_data = select_json_field(data['restaurants'][:10])
+    print(top10_data)
+
 
 if __name__ == "__main__":
     main()

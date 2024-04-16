@@ -1,5 +1,7 @@
 import unittest
+
 from src.restaurant import Restaurant
+
 
 class TestRestaurant(unittest.TestCase):
     def setUp(self):
@@ -24,6 +26,7 @@ class TestRestaurant(unittest.TestCase):
 
     def test_address(self):
         self.assertEqual(self.restaurant.address, '123 Main St, London, 12345')
+
 
 if __name__ == '__main__':
     unittest.main()
