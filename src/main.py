@@ -2,7 +2,7 @@ import json
 
 import requests
 
-from utils import check_postcode, select_json_field
+from src.utils import check_postcode, select_json_field
 
 
 def main(postcode: str = "EC4M7RF"):

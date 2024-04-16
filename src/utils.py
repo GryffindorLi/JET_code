@@ -1,7 +1,7 @@
 import re
 from typing import Dict, List
 
-from restaurant import Restaurant
+from src.restaurant import Restaurant
 
 TEMPLATE = r'^[A-Za-z]{1,2}\d[A-Za-z\d]?\s?\d[A-Za-z]{2}$'
 

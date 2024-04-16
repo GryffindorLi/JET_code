@@ -1,4 +1,4 @@
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 
 class Restaurant:
@@ -9,7 +9,7 @@ class Restaurant:
     def __init__(self, restaurant_info: Dict):
         self._name = restaurant_info['name']
         self._cuisines = self._extract_cuisines(restaurant_info['cuisines'])
-        self._rating = restaurant_info['rating']['starRating']
+        self._rating = self._extract_rating(restaurant_info['rating'])
         self._address = self._extract_address(restaurant_info['address'])
 
     @property
@@ -27,6 +27,12 @@ class Restaurant:
     @property
     def address(self):
         return self._address
+    
+    def _extract_rating(self, rating: Dict) -> Tuple[float, int]:
+        score = rating['starRating']
+        num_rates = rating['count']
+
+        return (score, num_rates)
 
     def _extract_cuisines(self, cuisines: List[Dict]) -> List[str]:
         """
