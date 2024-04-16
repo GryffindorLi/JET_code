@@ -1,5 +1,11 @@
 import requests
 import json
+from typing import List, Dict
+from restaurant import Restaurant
+
+
+def select_json_field(restaurants: List[Dict]):
+    return [Restaurant(info) for info in restaurants]
 
 def main(postcode="EC4M7RF"):
     # postcode = input("Please input the postcode you would like to query:\n>>> ")
