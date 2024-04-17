@@ -14,6 +14,10 @@ test-restaurant:
 	coverage run -m unittest tests/test_restaurant.py
 	coverage report
 
+test-tableprinter:
+	coverage run -m unittest tests/test_table_printer.py
+	coverage report
+
 fix-codestyle:
 	isort .
 	autopep8 --recursive --in-place .
@@ -22,4 +26,4 @@ lint:
 	pylint --rcfile .pylintrc --exit-zero .
 
 run:
-	python -m src.main
+	python main.py

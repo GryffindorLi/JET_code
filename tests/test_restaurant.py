@@ -7,7 +7,7 @@ class TestRestaurant(unittest.TestCase):
     def setUp(self):
         self.restaurant_info = {
             'name': 'My Favorite Restaurant',
-            'cuisines': [{'name': 'Italian'}, {'name': 'Peruvian'}],
+            'cuisines': [{'uniqueName': 'Italian'}, {'uniqueName': 'Peruvian'}],
             'rating': {'starRating': 4.5, 'count': 17},
             'address': {'firstLine': '123 Main St', 'city': 'London', 'postalCode': '12345'}
         }
@@ -22,7 +22,7 @@ class TestRestaurant(unittest.TestCase):
         self.assertEqual(self.restaurant.cuisines, ['Italian', 'Peruvian'])
 
     def test_rating(self):
-        self.assertEqual(self.restaurant.rating, (4.5, 17))
+        self.assertEqual(self.restaurant.rating, 4.5)
 
     def test_address(self):
         self.assertEqual(self.restaurant.address, '123 Main St, London, 12345')
