@@ -18,7 +18,7 @@ pip install -r requirements.txt
 
 Run the code:
 ```
-python src/main.py
+python -m src.main
 ```
 
 ### Run in Docker:

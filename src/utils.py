@@ -1,3 +1,6 @@
+"""
+This module contains some util functions
+"""
 import re
 from typing import Dict, List
 

@@ -19,7 +19,7 @@ fix-codestyle:
 	autopep8 --recursive --in-place .
 
 lint:
-	pylint . --exit-zero
+	pylint --rcfile .pylintrc --exit-zero .
 
 run:
 	python -m src.main

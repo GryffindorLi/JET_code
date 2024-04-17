@@ -1,3 +1,6 @@
+"""
+This module contains a class to store Restaurant data
+"""
 from typing import Dict, List, Tuple
 
 
@@ -27,8 +30,15 @@ class Restaurant:
     @property
     def address(self):
         return self._address
-    
+
     def _extract_rating(self, rating: Dict) -> Tuple[float, int]:
+        """
+        extract ratings from json
+        Args:
+            rating: a json dict that has 'starRating' and 'count' field
+        Returns:
+            a tuple contains the rating and the number of ratings
+        """
         score = rating['starRating']
         num_rates = rating['count']
 
