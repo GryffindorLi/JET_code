@@ -30,7 +30,7 @@ class Restaurant:
     @property
     def address(self):
         return self._address
-    
+
     def _extract_rating(self, rating: Dict) -> Tuple[float, int]:
         """
         extract ratings from json
