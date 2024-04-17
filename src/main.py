@@ -6,7 +6,7 @@ from src.utils import check_postcode, select_json_field
 
 
 def main(postcode: str = "EC4M7RF"):
-    # postcode = input("Please input the postcode you would like to query:\n>>> ")
+    # postcode = input("Please input the command. '--search' for querying the UK postcode (with no space in between). '--quit' to quit the program:\n>>> ")
 
     if not check_postcode(postcode=postcode):
         raise ValueError("The postcode must be a valid UK postcode.")
