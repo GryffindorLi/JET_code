@@ -5,6 +5,7 @@ import json
 import logging
 
 import requests
+from functools import lru_cache
 
 from src.parser import build_parser, split_input
 from src.table_printer import TablePrinter
@@ -32,15 +33,35 @@ def build_logger(to_file: bool = True, to_console: bool = True) -> logging.Logge
         logger.addHandler(console_handler)
 
     if to_file:
-        file_handler = logging.FileHandler('./logs/logfile.log')
+        file_handler = logging.FileHandler('logfile.log')
         file_handler.setLevel(logging.INFO)
         file_handler.setFormatter(formatter)
         logger.addHandler(file_handler)
 
     return logger
 
+logger = build_logger()
 
-def main(logger: logging.Logger, debug: bool = False):
+@lru_cache(maxsize=64)
+def get_data(postcode: str) -> Optional[Dict]:
+    if not check_postcode(postcode):
+        logger.error(f"Wrong postcode {args.search}. "
+                     "Please provide a valid UK postcode")
+        return
+    url = "https://uk.api.just-eat.io/discovery/uk/restaurants/"\
+           f"enriched/bypostcode/{args.search}"
+    response = requests.get(url=url, timeout=2.0)
+
+    if response.status_code == 200:
+        data = response.json()
+        logger.info(f"Successfully fetching data for {postcode}")
+        return data['restaurants'][:10]
+    else:
+        logger.warning(f"Fail to fetch data for {postcode}. Status code {response.status_code}")
+        return None
+
+
+def main(debug: bool = False):
     """
     The main function of the Restaurants query program.
     Args:
@@ -69,26 +90,19 @@ def main(logger: logging.Logger, debug: bool = False):
             logger.info("Quiting the program......")
             break
 
-        if not check_postcode(args.search):
-            logger.error(f"Wrong postcode {args.search}. "
-                         "Please provide a valid UK postcode")
-            continue
-
         if not debug:
-            url = "https://uk.api.just-eat.io/discovery/uk/restaurants/"\
-                f"enriched/bypostcode/{args.search}"
-            response = requests.get(url=url, timeout=2.0)
-
-            if response.status_code == 200:
-                data = response.json()
+            data = get_data(args.search)
         else:
             with open("./fake.json", "r", encoding="utf-8") as f:
-                data = json.load(f)
+                data = json.load(f)['restaurants'][:10]
 
-        top10_data = select_json_field(data['restaurants'][:10])
-        printer.print_table(top10_data, postcode=args.search)
+        if not data:
+            logger.info(f"No data is available for {args.search}")
+            continue
+
+        top10_restaurants = select_json_field(data)
+        printer.print_table(top10_restaurants, postcode=args.search)
 
 
 if __name__ == "__main__":
-    lgr = build_logger()
-    main(logger=lgr, debug=True)
+    main(debug=True)
