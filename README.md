@@ -21,9 +21,23 @@ Run the code:
 python main.py
 ```
 
-### Run in Docker:
+For usage:
+```
+>>> -s/--search <POSTCODE> # Search for first 10 restaurants at the location of <POSTCODE>
+>>> -s/--help # Help information
+>>> -q/--quit # quit the program
+```
 
-**TODO!**
+### Run in Docker:
+First pull the image:
+```
+docker pull ghcr.io/GryffindorLi/justeat_code_test:latest
+```
+
+then run the docker container:
+```
+docker run -it justeat_code_test
+```
 
 ## Not-Clear Assumptions
 
