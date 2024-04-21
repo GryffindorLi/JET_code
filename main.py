@@ -103,12 +103,8 @@ def main(debug: bool = False):
             logger.info("Quiting the program......")
             break
 
-        if not debug:
-            data = get_data(args.search)
-        else:
-            with open("./fake.json", "r", encoding="utf-8") as f:
-                data = json.load(f)['restaurants'][:10]
-
+        data = get_data(args.search)
+        
         if not data:
             logger.info(f"No data is available for {args.search}")
             continue
