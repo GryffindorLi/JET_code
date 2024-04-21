@@ -75,7 +75,7 @@ def get_data(postcode: str) -> Optional[List[Dict]]:
                    postcode}. Status code {response.status_code}")
 
 
-def main(debug: bool = False):
+def main():
     """
     The main function of the Restaurants query program.
     Args:
@@ -103,12 +103,8 @@ def main(debug: bool = False):
             logger.info("Quiting the program......")
             break
 
-        if not debug:
-            data = get_data(args.search)
-        else:
-            with open("./fake.json", "r", encoding="utf-8") as f:
-                data = json.load(f)['restaurants'][:10]
-
+        data = get_data(args.search)
+        
         if not data:
             logger.info(f"No data is available for {args.search}")
             continue
@@ -118,4 +114,4 @@ def main(debug: bool = False):
 
 
 if __name__ == "__main__":
-    main(debug=False)
+    main()
