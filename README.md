@@ -47,4 +47,4 @@ For usage:
 ## Improvements
 1. The first improvement I made is to cache the query results so the responseness of the repeat queries is improved. I use the @lru_cache in Python for now, and we could further cache it using a database.
 2. To ensure the consistence of the running environment, I orchestrated the code using a Docker container. In this way, there is no need to install the dependencies locally and the service becomes more manageable.
-3. Besides the source code and the testing code, I also configured the lint and code-style for the clearness of the code.
+3. Besides the source code and the testing code, I also configured the lint and code-style for the clearness of the code. I also provided Github Actions for automated testing, code linting, and container building for CI/CD process.
