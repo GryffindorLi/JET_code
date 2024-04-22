@@ -24,7 +24,7 @@ python main.py
 ### In Docker (Preferred):
 First, pull the image:
 ```
-docker pull ghcr.io/GryffindorLi/justeat_code_test:latest
+docker pull ghcr.io/gryffindorli/justeat_code_test:latest
 ```
 
 then run the docker container:
